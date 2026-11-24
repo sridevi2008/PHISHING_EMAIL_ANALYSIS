@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Prediction | Phishing Detection</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f5f2;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #166534;
+            text-align: center;
+        }
+
+        p {
+            color: #64748b;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            margin-top: 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 180px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background: #15803d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #166534;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .phishing {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .legitimate {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .error {
+            color: #b91c1c;
+        }
+
+        .back {
+            display: block;
+            margin-top: 25px;
+            text-align: center;
+            color: #15803d;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Email Prediction</h1>
+    <p>Check whether an email is Phishing or Legitimate</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p class="error">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('predict_email') }}">
+
+        <label>Email Subject</label>
+        <input
+            type="text"
+            name="subject"
+            placeholder="Enter email subject"
+            value="{{ subject }}"
+        >
+
+        <label>Email Content</label>
+        <textarea
+            name="body"
+            placeholder="Paste your email content here..."
+        >{{ body }}</textarea>
+
+        <button type="submit">Predict Email</button>
+
+    </form>
+
+    {% if result %}
+        <div class="result {{ result }}">
+            Prediction: {{ result }}
+        </div>
+    {% endif %}
+
+    <a class="back" href="{{ url_for('dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

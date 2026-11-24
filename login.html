@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureSight | Sign in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-body">
+  <div class="login-shell">
+    <section class="login-visual">
+      <div class="brand"><span class="brand-mark">S</span><span>SecureSight</span></div>
+      <div class="visual-copy">
+        <div class="eyebrow"><span class="pulse"></span> EMAIL THREAT INTELLIGENCE</div>
+        <h1>See the threat.<br><span>Stop the click.</span></h1>
+        <p>Turn email data into clear security insights with an elegant phishing analysis workspace.</p>
+      </div>
+      <div class="visual-art">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="shield"><div class="shield-inner">✓</div></div>
+        <div class="float-chip chip-top">✦ Threat analysis</div>
+        <div class="float-chip chip-bottom"><span class="mini-dot"></span> Monitoring email patterns</div>
+      </div>
+      <div class="visual-footer">PYTHON · DATA ANALYTICS · CYBERSECURITY</div>
+    </section>
+    <section class="login-panel">
+      <div class="mobile-brand brand"><span class="brand-mark">S</span><span>SecureSight</span></div>
+      <div class="login-card">
+        <div class="eyebrow muted">WELCOME BACK</div>
+        <h2>Sign in to your<br>workspace</h2>
+        <p class="subtext">Enter your credentials to open the analysis dashboard.</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}
+          {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('login') }}">
+          <label for="username">Username</label>
+          <div class="input-wrap"><span>♙</span><input id="username" name="username" type="text" placeholder="Enter username" required autocomplete="username"></div>
+          <label for="password">Password</label>
+          <div class="input-wrap"><span>⌑</span><input id="password" name="password" type="password" placeholder="Enter password" required autocomplete="current-password"><button class="eye-btn" type="button" onclick="togglePassword()" aria-label="Show password">◉</button></div>
+          <button class="sign-in-btn" type="submit">Sign in <span>→</span></button>
+        </form>
+        <div class="demo-note"><span class="lock">▣</span><div><b>Demo access</b><br><span>Username: admin &nbsp;·&nbsp; Password: Admin@123</span></div></div>
+        <div class="login-bottom">Protected project workspace <span>•</span> SecureSight Analytics</div>
+      </div>
+    </section>
+  </div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
